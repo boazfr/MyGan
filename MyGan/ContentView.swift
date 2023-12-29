@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var selectedLoginMethod: LoginMethod?
+    @State private var isSignUp = false
     
     enum LoginMethod {
         case phoneNumber
@@ -31,6 +32,7 @@ struct ContentView: View {
             Button("Login with Phone Number") {
                 withAnimation {
                     selectedLoginMethod = .phoneNumber
+                    isSignUp = false
                 }
                 
                 //TODO: implement phone number auth
@@ -52,6 +54,7 @@ struct ContentView: View {
             Button("Login with Gmail") {
                 withAnimation {
                     selectedLoginMethod = .gmail
+                    isSignUp = false
                 }
                 
                 //TODO: implement Google auth
@@ -74,6 +77,22 @@ struct ContentView: View {
             }
             
             Spacer()
+            
+            Button("Don't have an account? Sign Up") {
+                withAnimation {
+                    isSignUp.toggle()
+                }
+            }
+            .padding()
+            .foregroundColor(Color.green)
+            .cornerRadius(5)
+            
+            if isSignUp {
+                TextField("Full Name", text: .constant(""))
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .transition(.slide)
+            }
         }
         .padding()
     }
@@ -82,5 +101,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct Previews_ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
